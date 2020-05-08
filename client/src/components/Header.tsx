@@ -3,7 +3,7 @@ import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 
-import CompanyLogo from './CompanyLogo';
+import CompanyLogo from '../svg-icons/CompanyLogo';
 import colors from '../colors';
 
 type StyledComponentProps = {
@@ -38,7 +38,7 @@ const StyledStickyHeader = styled.div`
   transition: all 0.3s ease-in-out;
 `;
 
-const Header = ({ location: { pathname } }: RouteComponentProps) => {
+function Header({ location: { pathname } }: RouteComponentProps) {
   const headerMainRef = useRef<HTMLElement | null>(null);
   const headerStickyRef = useRef<HTMLDivElement | null>(null);
 
@@ -87,17 +87,9 @@ const Header = ({ location: { pathname } }: RouteComponentProps) => {
           `}
         >
           {/* logo */}
-          <div
-            css={css`
-              svg {
-                width: 15rem;
-              }
-            `}
-          >
-            <Link to="/">
-              <CompanyLogo />
-            </Link>
-          </div>
+          <Link to="/">
+            <CompanyLogo width="15rem" />
+          </Link>
           {/* navigation */}
           <nav
             css={css`
@@ -305,6 +297,6 @@ const Header = ({ location: { pathname } }: RouteComponentProps) => {
       </StyledStickyHeader>
     </>
   );
-};
+}
 
 export default withRouter(Header);

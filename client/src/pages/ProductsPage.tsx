@@ -1,9 +1,7 @@
-import React from 'react'
-import { css } from '@emotion/core'
+import React from 'react';
+import { css } from '@emotion/core';
 
-type Props = {}
-
-const ProductsPage: React.FC<Props> = () => {
+const ProductsPage = () => {
   return (
     <div
       css={css`
@@ -12,7 +10,7 @@ const ProductsPage: React.FC<Props> = () => {
     >
       <h1>This is the products page</h1>
     </div>
-  )
-}
+  );
+};
 
-export default ProductsPage
+export default ProductsPage;

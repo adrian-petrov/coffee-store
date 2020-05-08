@@ -9,7 +9,7 @@ body {
   height: 100%;
   margin: 0;
   box-sizing: inherit;
-  font-family: 'Avenir', 'Helvetica', sans-serif;
+  font-family: 'Roboto', 'Helvetica', sans-serif;
   font-size: 1.6rem;
   line-height: 1.618;
 }
@@ -70,19 +70,6 @@ ul {
 ul li a {
   text-decoration: none;
   color: #3d4142; /* textPrimary */
-}
-
-.container {
-  width: 100%;
-  max-width: 1320px;
-  margin: 0 auto;
-}
-
-.grid-12 {
-  display: grid;
-  grid-template-columns: repeat(12, [col-start] 1fr);
-  grid-gap: 24px;
-  justify-content: center;
 }
 
 /* sticky header transition */

@@ -16,8 +16,8 @@ const StyledMain = styled.main`
     props.pathname === '/' ? '0' : '8rem'};
 `;
 
-const Main = ({ children, location: { pathname } }: Props) => {
+function Main({ children, location: { pathname } }: Props) {
   return <StyledMain pathname={pathname}>{children}</StyledMain>;
-};
+}
 
 export default withRouter(Main);

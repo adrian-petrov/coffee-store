@@ -4,6 +4,7 @@ import { Product } from './Product';
 import { ProductCoffee } from './ProductCoffee';
 import { User } from './User';
 import { Role } from './Role';
+import { Session } from './Session';
 
 require('dotenv').config();
 
@@ -29,9 +30,10 @@ let models: { [key: string]: any } = {
   Category: Category(sequelize),
   Product: Product(sequelize),
   ProductCoffee: ProductCoffee(sequelize),
+  Session: Session(sequelize),
 };
 
-// execute associations
+// create associations
 Object.keys(models).forEach((modelName) => {
   if ('associate' in models[modelName]) {
     models[modelName].associate(models);

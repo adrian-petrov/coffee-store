@@ -23,7 +23,7 @@ type ProductCoffeeStatic = typeof Model & {
   associate: ({}) => void;
 };
 
-export const ProductCoffee = (sequelize: Sequelize) => {
+export function ProductCoffee(sequelize: Sequelize) {
   const ProductCoffee = <ProductCoffeeStatic>sequelize.define(
     'product_coffee',
     {
@@ -54,7 +54,7 @@ export const ProductCoffee = (sequelize: Sequelize) => {
     }
   );
 
-  ProductCoffee.associate = (models: { [key: string]: any }) => {
+  ProductCoffee.associate = function (models: { [key: string]: any }) {
     ProductCoffee.belongsTo(models.Product, {
       foreignKey: {
         name: 'product_id',
@@ -64,4 +64,4 @@ export const ProductCoffee = (sequelize: Sequelize) => {
   };
 
   return ProductCoffee;
-};
+}

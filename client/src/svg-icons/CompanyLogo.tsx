@@ -1,15 +1,22 @@
 import React from 'react';
-import { css } from '@emotion/core';
+import styled from '@emotion/styled';
 
-const CompanyLogo: React.FC = () => {
+type LogoProps = {
+  width?: string;
+  marginBottom?: string;
+  className?: string;
+};
+
+const StyledCompanyLogo = styled('svg')<LogoProps>`
+  fill: white;
+  width: ${({ width }: LogoProps) => (width ? width : '10rem')};
+  margin-bottom: ${({ marginBottom }: LogoProps) =>
+    marginBottom ? marginBottom : 0};
+`;
+
+function CompanyLogo(props: LogoProps) {
   return (
-    <svg
-      css={css`
-        fill: white;
-        width: 10rem;
-      `}
-      viewBox="0 0 207.531 43.702"
-    >
+    <StyledCompanyLogo viewBox="0 0 207.531 43.702" {...props}>
       <g transform="translate(-217.225 -935.573)">
         <g transform="translate(217.225 935.573)">
           <g transform="translate(0 16.646)">
@@ -49,8 +56,8 @@ const CompanyLogo: React.FC = () => {
           </tspan>
         </text>
       </g>
-    </svg>
+    </StyledCompanyLogo>
   );
-};
+}
 
 export default CompanyLogo;

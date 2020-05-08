@@ -17,7 +17,7 @@ type ProductStatic = typeof Model & {
   associate: ({}) => void;
 };
 
-export const Product = (sequelize: Sequelize) => {
+export function Product(sequelize: Sequelize) {
   const Product = <ProductStatic>sequelize.define('product', {
     product_id: {
       type: INTEGER,
@@ -50,7 +50,7 @@ export const Product = (sequelize: Sequelize) => {
     },
   });
 
-  Product.associate = (models: { [key: string]: any }) => {
+  Product.associate = function (models: { [key: string]: any }) {
     Product.belongsTo(models.Category, {
       foreignKey: {
         name: 'category_id',
@@ -64,4 +64,4 @@ export const Product = (sequelize: Sequelize) => {
   };
 
   return Product;
-};
+}

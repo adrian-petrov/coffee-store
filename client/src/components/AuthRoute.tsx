@@ -1,30 +1,37 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import {
+  Route,
+  Redirect,
+  RouteComponentProps,
+  RouteProps,
+} from 'react-router-dom';
 
-type Props = {
-  children: React.ReactNode;
+import { AuthContext } from '../context/AuthContext';
+
+type Props = RouteProps & {
+  component: any;
+  authenticationPath: string;
 };
 
-const AuthRoute: React.FC<Props> = ({ children, ...other }) => {
-  const isAuthenticated = false;
+function AuthRoute({
+  component: Component,
+  authenticationPath,
+  ...other
+}: Props) {
+  const { authState } = React.useContext(AuthContext);
 
   return (
     <Route
       {...other}
-      render={({ location }) =>
-        isAuthenticated ? (
-          children
+      render={(routeProps: RouteComponentProps) =>
+        authState.isAuthenticated ? (
+          <Component {...routeProps} />
         ) : (
-          <Redirect
-            to={{
-              pathname: '/login',
-              state: { from: location },
-            }}
-          />
+          <Redirect to={authenticationPath} />
         )
       }
     />
   );
-};
+}
 
 export default AuthRoute;

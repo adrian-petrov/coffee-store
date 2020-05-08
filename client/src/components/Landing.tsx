@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react'
-import { css } from '@emotion/core'
+import React, { useEffect, useState } from 'react';
+import { css } from '@emotion/core';
 
-import colors from '../colors'
-import video from '../videos/video-2.mp4'
-import Button from './Button'
+import colors from '../colors';
+import video from '../videos/video-2.mp4';
+import Button from './Button';
 
-const Landing: React.FC = () => {
-  const [serverMessage, setServerMessage] = useState('')
+function Landing() {
+  const [serverMessage, setServerMessage] = useState('');
   useEffect(() => {
     fetch('/api')
       .then(res => res.json())
-      .then(data => setServerMessage(data))
-  }, [])
+      .then(data => setServerMessage(data));
+  }, []);
 
   return (
     <div
@@ -92,7 +92,7 @@ const Landing: React.FC = () => {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Landing
+export default Landing;

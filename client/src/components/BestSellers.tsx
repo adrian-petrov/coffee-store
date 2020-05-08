@@ -1,9 +1,9 @@
-import React from 'react'
-import { css } from '@emotion/core'
+import React from 'react';
+import { css } from '@emotion/core';
 
-import colors from '../colors'
+import colors from '../colors';
 
-const BestSellers = () => {
+function BestSellers() {
   return (
     <section
       css={css`
@@ -53,7 +53,7 @@ const BestSellers = () => {
         </ul>
       </div>
     </section>
-  )
+  );
 }
 
-export default BestSellers
+export default BestSellers;

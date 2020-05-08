@@ -1,40 +1,54 @@
 import { css } from '@emotion/core';
-import {
-  Button,
-  createMuiTheme,
-  ThemeProvider,
-  CircularProgress,
-} from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
-import clsx from 'clsx';
-import { Formik } from 'formik';
+import axios from 'axios';
+import qs from 'qs';
+import { Formik, FormikHelpers } from 'formik';
+import { Button, CircularProgress } from '@material-ui/core';
+import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
 import React from 'react';
 import * as Yup from 'yup';
 import TextFieldBase from './TextFieldBase';
+import { AuthContext } from '../context/AuthContext';
 
-const darkTheme = createMuiTheme({
-  palette: {
-    type: 'dark',
-    primary: {
-      main: '#1c98eb',
-    },
-    secondary: {
-      main: '#f0f0f0',
-    },
-  },
-});
+interface FormValues {
+  email: string;
+  password: string;
+}
 
-const useStyles = makeStyles({
-  root: {
-    fontSize: '1.6rem',
-  },
-  button: {
-    marginTop: '2rem',
-  },
-});
+function LoginForm({ history }: RouteComponentProps) {
+  const { updateAuthState } = React.useContext(AuthContext);
 
-const LoginForm = () => {
-  const classes = useStyles();
+  async function handleFormSubmit(
+    values: FormValues,
+    actions: FormikHelpers<FormValues>
+  ) {
+    try {
+      const response = await axios({
+        method: 'post',
+        url: '/admin/login',
+        data: qs.stringify(values),
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      });
+      if (response.data.isAuthenticated) {
+        updateAuthState({
+          isAuthenticated: true,
+          authUser: response.data.authUser,
+        });
+
+        window.localStorage.setItem('isAuthenticated', 'true');
+        window.localStorage.setItem('authUser', `${response.data.authUser}`);
+
+        history.push('/admin');
+      }
+    } catch (err) {
+      const { errors } = err.response.data;
+      if (errors.status === 401) {
+        actions.setFieldError('email', 'Invalid email or password');
+        actions.setFieldError('password', 'Invalid email or password');
+      }
+    }
+  }
 
   return (
     <div
@@ -44,82 +58,72 @@ const LoginForm = () => {
         align-items: center;
       `}
     >
-      <ThemeProvider theme={darkTheme}>
-        <Formik
-          initialValues={{
-            email: '',
-            password: '',
-          }}
-          validationSchema={Yup.object({
-            email: Yup.string()
-              .email('Please provide a valid email address')
-              .required('This field is required'),
-            password: Yup.mixed().required('This field is required'),
-          })}
-          validateOnBlur={false}
-          validateOnChange={true}
-          onSubmit={(values, actions) => console.log(values, actions)}
-        >
-          {({ handleSubmit, isValid, dirty, isSubmitting }) => (
-            <form
-              onSubmit={handleSubmit}
-              css={css`
-                width: 35rem;
-              `}
+      <Formik
+        initialValues={{
+          email: '',
+          password: '',
+        }}
+        validationSchema={Yup.object({
+          email: Yup.string()
+            .email('Please provide a valid email address')
+            .required('This field is required'),
+          password: Yup.string().required('This field is required'),
+        })}
+        validateOnBlur={false}
+        validateOnChange={true}
+        onSubmit={handleFormSubmit}
+      >
+        {({ handleSubmit, isSubmitting }) => (
+          <form
+            onSubmit={handleSubmit}
+            css={css`
+              width: 40rem;
+            `}
+          >
+            <TextFieldBase
+              name="email"
+              id="email"
+              label="Email Address"
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              required
+            />
+            <TextFieldBase
+              name="password"
+              id="password"
+              label="Password"
+              variant="outlined"
+              type="password"
+              fullWidth
+              margin="normal"
+              required
+            />
+            <Button
+              type="submit"
+              color="primary"
+              variant="contained"
+              size="large"
+              fullWidth
+              disabled={isSubmitting}
             >
-              <TextFieldBase
-                name="email"
-                id="email"
-                label="Email"
-                variant="outlined"
-                fullWidth
-                margin="normal"
-                required
-                InputProps={{ className: classes.root }}
-                InputLabelProps={{ className: classes.root }}
-              />
-              <TextFieldBase
-                name="password"
-                id="password"
-                label="Password"
-                variant="outlined"
-                type="password"
-                fullWidth
-                margin="normal"
-                required
-                InputProps={{ className: classes.root }}
-                InputLabelProps={{ className: classes.root }}
-              />
-              <Button
-                type="submit"
-                color="primary"
-                variant="contained"
-                size="large"
-                fullWidth
-                disabled={!(isValid && dirty)}
-                classes={{ root: clsx(classes.root, classes.button) }}
-              >
-                {isSubmitting ? (
-                  <CircularProgress color="secondary" />
-                ) : (
-                  'Sign in'
-                )}
-              </Button>
-              <Button
-                color="secondary"
-                variant="outlined"
-                size="large"
-                fullWidth
-                classes={{ root: clsx(classes.root, classes.button) }}
-              >
-                Sign up
-              </Button>
-            </form>
-          )}
-        </Formik>
-      </ThemeProvider>
+              {isSubmitting ? <CircularProgress color="secondary" /> : 'Log in'}
+            </Button>
+            <Button
+              component={Link}
+              to="/admin/signup"
+              color="primary"
+              variant="text"
+              size="small"
+              fullWidth
+            >
+              Don't have an account? Register here
+            </Button>
+          </form>
+        )}
+      </Formik>
     </div>
   );
-};
+}
 
-export default LoginForm;
+export default withRouter(LoginForm);

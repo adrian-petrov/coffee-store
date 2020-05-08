@@ -12,7 +12,7 @@ type CategoryStatic = typeof Model & {
   associate: ({}) => void;
 };
 
-export const Category = (sequelize: Sequelize) => {
+export function Category(sequelize: Sequelize) {
   const Category = <CategoryStatic>sequelize.define('category', {
     category_id: {
       type: INTEGER,
@@ -32,4 +32,4 @@ export const Category = (sequelize: Sequelize) => {
   };
 
   return Category;
-};
+}

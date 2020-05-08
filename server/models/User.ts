@@ -1,10 +1,13 @@
 import { Sequelize, Model, BuildOptions, INTEGER, STRING } from 'sequelize';
+import bcrypt from 'bcrypt';
+
+import models from './index';
 
 interface UserModel extends Model {
   user_id: number;
   first_name: string;
   last_name: string;
-  username: string;
+  email: string;
   password: string;
   createdAt?: Date;
   updatedAt?: Date;
@@ -15,7 +18,7 @@ type AdminStatic = typeof Model & {
   associate: ({}) => void;
 };
 
-export const User = (sequelize: Sequelize) => {
+export function User(sequelize: Sequelize) {
   const User = <AdminStatic>sequelize.define('user', {
     user_id: {
       type: INTEGER,
@@ -39,12 +42,12 @@ export const User = (sequelize: Sequelize) => {
       },
     },
     password: {
-      type: STRING,
+      type: STRING(5000),
       allowNull: false,
     },
   });
 
-  User.associate = (models: { [key: string]: any }) => {
+  User.associate = function (models: { [key: string]: any }) {
     User.belongsToMany(models.Role, {
       through: 'user_role',
       foreignKey: {
@@ -52,6 +55,10 @@ export const User = (sequelize: Sequelize) => {
       },
     });
   };
+  // use prototype to access instance password through 'this'
+  User.prototype.comparePassword = function (password: string) {
+    return bcrypt.compare(password, this.password);
+  };
 
   return User;
-};
+}

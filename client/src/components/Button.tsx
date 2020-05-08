@@ -1,8 +1,8 @@
-import React from 'react'
-import { Link, LinkProps as ReactRouterLinkProps } from 'react-router-dom'
-import styled from '@emotion/styled'
+import React from 'react';
+import { Link, LinkProps as ReactRouterLinkProps } from 'react-router-dom';
+import styled from '@emotion/styled';
 
-import colors from '../colors'
+import colors from '../colors';
 
 const StyledButtonPrimary = styled.button`
   display: inline-block;
@@ -21,7 +21,7 @@ const StyledButtonPrimary = styled.button`
   &:hover {
     background-color: ${colors.primaryLight1};
   }
-`
+`;
 
 const StyledButtonLink = styled(Link)`
   display: inline-block;
@@ -40,30 +40,31 @@ const StyledButtonLink = styled(Link)`
   &:hover {
     background-color: ${colors.primaryLight1};
   }
-`
+`;
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  children: string
-  color: string
-  to?: undefined
-}
+  children: string;
+  color: string;
+  to?: undefined;
+};
 
 type LinkProps = ReactRouterLinkProps & {
-  children: string
-  color: string
-  to: string
+  children: string;
+  color: string;
+  to: string;
+};
+
+function hasPath(props: ButtonProps | LinkProps): props is LinkProps {
+  return 'to' in props;
 }
 
-const hasPath = (props: ButtonProps | LinkProps): props is LinkProps =>
-  'to' in props
-
-const Button = (props: ButtonProps | LinkProps) => {
-  const { children } = props
+function Button(props: ButtonProps | LinkProps) {
+  const { children } = props;
 
   if (hasPath(props)) {
-    return <StyledButtonLink {...props}>{children}</StyledButtonLink>
+    return <StyledButtonLink {...props}>{children}</StyledButtonLink>;
   }
-  return <StyledButtonPrimary {...props}>{children}</StyledButtonPrimary>
+  return <StyledButtonPrimary {...props}>{children}</StyledButtonPrimary>;
 }
 
-export default Button
+export default Button;

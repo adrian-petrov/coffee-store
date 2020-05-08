@@ -12,7 +12,7 @@ type AdminStatic = typeof Model & {
   associate: ({}) => void;
 };
 
-export const Role = (sequelize: Sequelize) => {
+export function Role(sequelize: Sequelize) {
   const Role = <AdminStatic>sequelize.define('role', {
     role_id: {
       type: INTEGER,
@@ -25,7 +25,7 @@ export const Role = (sequelize: Sequelize) => {
     },
   });
 
-  Role.associate = (models: { [key: string]: any }) => {
+  Role.associate = function (models: { [key: string]: any }) {
     Role.belongsToMany(models.User, {
       through: 'user_role',
       foreignKey: {
@@ -36,4 +36,4 @@ export const Role = (sequelize: Sequelize) => {
   };
 
   return Role;
-};
+}

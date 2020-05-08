@@ -1,45 +1,47 @@
 import React from 'react';
-import { css } from '@emotion/core';
-
+import { Link, Route, Redirect } from 'react-router-dom';
+import Grid from '@material-ui/core/Grid';
 import LoginForm from '../components/LoginForm';
-import CompanyLogo from '../components/CompanyLogo';
+import CompanyLogo from '../svg-icons/CompanyLogo';
+import { AuthContext } from '../context/AuthContext';
+import { makeStyles } from '@material-ui/core/styles';
 
-const LoginPage: React.FC = () => {
+const useStyles = makeStyles(theme => ({
+  container: {
+    paddingTop: theme.spacing(6),
+    textAlign: 'center',
+  },
+}));
+
+function LoginPage() {
+  const classes = useStyles();
+
+  const { authState } = React.useContext(AuthContext);
+
   return (
-    <div
-      css={css`
-        height: 100vh;
-        background-color: #333333;
-        color: white;
-        padding: 4rem;
-      `}
-    >
-      <div
-        css={css`
-          display: flex;
-          justify-content: center;
-
-          svg {
-            fill: white;
-            width: 35rem;
-            margin-bottom: 3rem;
-          }
-        `}
-      >
-        <CompanyLogo />
-      </div>
-      <div className="container">
-        <h1
-          css={css`
-            text-align: center;
-          `}
-        >
-          Sign in
-        </h1>
-        <LoginForm />
-      </div>
-    </div>
+    <Route
+      render={() =>
+        authState.isAuthenticated ? (
+          <Redirect to="/admin" />
+        ) : (
+          <Grid
+            container
+            direction="column"
+            alignItems="center"
+            className={classes.container}
+          >
+            <Grid item>
+              <Link to="/">
+                <CompanyLogo marginBottom="5rem" width="35rem" />
+              </Link>
+              <h2>Log in</h2>
+              <LoginForm />
+            </Grid>
+          </Grid>
+        )
+      }
+    />
   );
-};
+}
 
 export default LoginPage;
