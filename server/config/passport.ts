@@ -8,6 +8,7 @@ const LocalStrategy = passportLocal.Strategy;
 
 export default (passport: PassportStatic) => {
   passport.use(
+    'local-admin',
     new LocalStrategy(
       { usernameField: 'email' },
       async (email, password, done) => {
@@ -21,6 +22,28 @@ export default (passport: PassportStatic) => {
         const isAdmin = await isUserAdmin(user.user_id);
 
         if (isMatch && isAdmin) {
+          return done(null, user);
+        }
+        return done(null, false);
+      }
+    )
+  );
+
+  passport.use(
+    'local-customer',
+    new LocalStrategy(
+      { usernameField: 'email' },
+      async (email, password, done) => {
+        const user = await getUserByEmail(email);
+
+        if (!user) {
+          return done(null, false);
+        }
+
+        const isMatch = await user.comparePassword(password);
+        const isAdmin = await isUserAdmin(user.user_id);
+
+        if (isMatch && !isAdmin) {
           return done(null, user);
         }
         return done(null, false);

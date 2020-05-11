@@ -7,6 +7,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 import TextFieldBase from './TextFieldBase';
+import TextFieldPassword from './TextFieldPassword';
 
 interface FormValues {
   firstName: string;
@@ -15,7 +16,7 @@ interface FormValues {
   password: string;
 }
 
-function RegisterForm() {
+function AdminRegisterForm() {
   async function handleFormSubmit(
     values: FormValues,
     actions: FormikHelpers<FormValues>
@@ -34,8 +35,9 @@ function RegisterForm() {
       }
     } catch (err) {
       const { errors } = err.response.data;
-      if (errors) {
-        actions.setFieldError('email', errors.email.msg);
+
+      for (let key in errors) {
+        actions.setFieldError(key, errors[key]);
       }
     }
   }
@@ -56,10 +58,10 @@ function RegisterForm() {
         }}
         validationSchema={Yup.object({
           firstName: Yup.string()
-            .min(2, 'This field has to be at least 2 characters')
+            .min(2, 'First name needs to be at least 2 characters')
             .required('Please enter your first name'),
           lastName: Yup.string()
-            .min(2, 'This field has to be at least 2 characters')
+            .min(2, 'Last name needs to be at least 2 characters')
             .required('Please enter your last name'),
           email: Yup.string()
             .email('Please provide a valid email address')
@@ -113,11 +115,8 @@ function RegisterForm() {
               fullWidth
               required
             />
-            <TextFieldBase
+            <TextFieldPassword
               name="password"
-              id="password"
-              label="Password"
-              type="password"
               variant="outlined"
               margin="normal"
               fullWidth
@@ -137,7 +136,7 @@ function RegisterForm() {
                 <p>Account successfully created!</p>
                 <Button
                   component={Link}
-                  to="/admin/signin"
+                  to="/admin/login"
                   variant="text"
                   color="primary"
                 >
@@ -162,7 +161,7 @@ function RegisterForm() {
                 </Button>
                 <Button
                   component={Link}
-                  to="/admin/signin"
+                  to="/admin/login"
                   color="primary"
                   variant="text"
                   size="small"
@@ -179,4 +178,4 @@ function RegisterForm() {
   );
 }
 
-export default RegisterForm;
+export default AdminRegisterForm;

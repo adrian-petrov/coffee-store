@@ -5,7 +5,8 @@ import passport from 'passport';
 
 import passportConfig from './config/passport';
 import models from './models/index';
-import admin from './routes/admin';
+import indexRoute from './routes/indexRoute';
+import adminRoute from './routes/adminRoute';
 
 require('dotenv').config();
 
@@ -18,6 +19,7 @@ const SequelizeStore = sessionSequelize(session.Store);
 
 // top-level middleware
 passportConfig(passport);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
@@ -44,7 +46,8 @@ app.use((req, res, next) => {
 });
 
 // routes
-app.use('/admin', admin);
+app.use('/', indexRoute);
+app.use('/admin', adminRoute);
 
 // sync models and start server
 models.sequelize.sync().then(async () => {

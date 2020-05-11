@@ -2,12 +2,14 @@ import { css } from '@emotion/core';
 import axios from 'axios';
 import qs from 'qs';
 import { Formik, FormikHelpers } from 'formik';
-import { Button, CircularProgress } from '@material-ui/core';
 import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
 import React from 'react';
 import * as Yup from 'yup';
 import TextFieldBase from './TextFieldBase';
 import { AuthContext } from '../context/AuthContext';
+import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import TextFieldPassword from './TextFieldPassword';
 
 interface FormValues {
   email: string;
@@ -89,15 +91,11 @@ function LoginForm({ history }: RouteComponentProps) {
               margin="normal"
               required
             />
-            <TextFieldBase
+            <TextFieldPassword
               name="password"
-              id="password"
-              label="Password"
               variant="outlined"
-              type="password"
               fullWidth
               margin="normal"
-              required
             />
             <Button
               type="submit"
@@ -111,7 +109,7 @@ function LoginForm({ history }: RouteComponentProps) {
             </Button>
             <Button
               component={Link}
-              to="/admin/signup"
+              to="/admin/register"
               color="primary"
               variant="text"
               size="small"

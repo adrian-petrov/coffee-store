@@ -25,7 +25,7 @@ import Divider from '@material-ui/core/Divider';
 import PeopleIcon from '@material-ui/icons/People';
 import Avatar from '@material-ui/core/Avatar';
 import { AuthContext } from '../context/AuthContext';
-import Orders from './Orders';
+import Orders from './AdminOrders';
 
 const DRAWER_WIDTH = 240;
 
@@ -104,7 +104,7 @@ type Props = RouteComponentProps & {
   handleLogout: () => void;
 };
 
-function Dashboard({ handleLogout, match }: Props) {
+function AdminDashboard({ handleLogout, match }: Props) {
   const classes = useStyles();
   const { authState } = React.useContext(AuthContext);
 
@@ -146,8 +146,6 @@ function Dashboard({ handleLogout, match }: Props) {
 
     return `${firstNameInitial}${lastNameInitial}`;
   }
-
-  console.log(match);
 
   const StyledBadge = withStyles({
     badge: {
@@ -226,14 +224,29 @@ function Dashboard({ handleLogout, match }: Props) {
         <Collapse in={isNestedItemCollapsed} timeout="auto">
           <List>
             {/* COFFEE */}
-            <ListItem button className={classes.nestedListItem}>
+            <ListItem
+              button
+              className={classes.nestedListItem}
+              component={Link}
+              to="/admin/products/coffee"
+            >
               <ListItemText primary="Coffee" />
             </ListItem>
             {/* BREWING EQUIPMENT */}
-            <ListItem button className={classes.nestedListItem}>
+            <ListItem
+              button
+              className={classes.nestedListItem}
+              component={Link}
+              to="/admin/products/brewing-equipment"
+            >
               <ListItemText primary="Brewing equipment" />
             </ListItem>
-            <ListItem button className={classes.nestedListItem}>
+            <ListItem
+              button
+              className={classes.nestedListItem}
+              component={Link}
+              to="/admin/products/gifts"
+            >
               <ListItemText primary="Gifts" />
             </ListItem>
           </List>
@@ -299,9 +312,15 @@ function Dashboard({ handleLogout, match }: Props) {
         <div className={classes.appBarSpacer} />
         {/* <Route path={`${match.path}/products`} */}
         <Route path={`${match.path}/orders`} component={Orders} />
+        <Route path={`${match.path}/products/coffee`} component={Coffee} />
+        <Route
+          path={`${match.path}/products/brewing-equipment`}
+          component={BrewingEquipment}
+        />
+        <Route path={`${match.path}/products/gifts`} component={Gifts} />
       </main>
     </div>
   );
 }
 
-export default withRouter(Dashboard);
+export default withRouter(AdminDashboard);

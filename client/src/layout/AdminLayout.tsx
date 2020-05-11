@@ -1,7 +1,7 @@
 import { css } from '@emotion/core';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import React from 'react';
-import { Route, RouteComponentProps } from 'react-router-dom';
+import { Route, RouteComponentProps, Switch } from 'react-router-dom';
 import AuthRoute from '../components/AuthRoute';
 import { AuthProvider } from '../context/AuthContext';
 import AdminPage from '../pages/AdminPage';
@@ -48,14 +48,15 @@ const AdminLayout = ({ match }: RouteComponentProps) => {
         `}
       >
         <AuthProvider>
-          <AuthRoute
-            // exact
-            path={match.path}
-            authenticationPath={`${match.path}/login`}
-            component={AdminPage}
-          />
-          <Route path={`${match.path}/login`} component={LoginPage} />
-          <Route path={`${match.path}/register`} component={RegisterPage} />
+          <Switch>
+            <Route path={`${match.path}/login`} component={LoginPage} />
+            <Route path={`${match.path}/register`} component={RegisterPage} />
+            <AuthRoute
+              path={match.path}
+              authenticationPath={`${match.path}/login`}
+              component={AdminPage}
+            />
+          </Switch>
         </AuthProvider>
       </div>
     </ThemeProvider>
