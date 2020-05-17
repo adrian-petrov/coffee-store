@@ -1,8 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import { RouteComponentProps } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
-import AdminDashboard from '../components/AdminDashboard';
+import { AuthContext } from '../../context/AuthContext';
+import Dashboard from '../../components/admin/Dashboard';
 
 function AdminPage({ history }: RouteComponentProps) {
   const { updateAuthState } = React.useContext(AuthContext);
@@ -24,6 +24,6 @@ function AdminPage({ history }: RouteComponentProps) {
     }
   }
 
-  return <AdminDashboard handleLogout={handleLogout} />;
+  return <Dashboard handleLogout={handleLogout} />;
 }
 export default AdminPage;

@@ -10,7 +10,7 @@ body {
   margin: 0;
   box-sizing: inherit;
   font-family: 'Roboto', 'Helvetica', sans-serif;
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   line-height: 1.618;
 }
 
@@ -30,7 +30,7 @@ h4 {
 }
 
 h1 {
-  font-size: 6.4rem;
+  font-size: 6rem;
   font-weight: 900;
   line-height: 1.4;
   margin: 1.6rem 0;

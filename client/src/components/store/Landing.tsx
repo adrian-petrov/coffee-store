@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { css } from '@emotion/core';
 
-import colors from '../colors';
-import video from '../videos/video-2.mp4';
-import Button from './Button';
+import colors from '../../colors';
+import video from '../../videos/video-2.mp4';
+import Button from '../common/Button';
 
 function Landing() {
   const [serverMessage, setServerMessage] = useState('');

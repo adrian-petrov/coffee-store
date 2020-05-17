@@ -3,8 +3,8 @@ import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 
-import CompanyLogo from '../svg-icons/CompanyLogo';
-import colors from '../colors';
+import CompanyLogo from '../../svg-icons/CompanyLogo';
+import colors from '../../colors';
 
 type StyledComponentProps = {
   pathname: string;

@@ -5,11 +5,11 @@ import { Formik, FormikHelpers } from 'formik';
 import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
 import React from 'react';
 import * as Yup from 'yup';
-import TextFieldBase from './TextFieldBase';
-import { AuthContext } from '../context/AuthContext';
+import TextFieldBase from '../common/TextFieldBase';
+import { AuthContext } from '../../context/AuthContext';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import TextFieldPassword from './TextFieldPassword';
+import TextFieldPassword from '../common/TextFieldPassword';
 
 interface FormValues {
   email: string;
@@ -32,6 +32,7 @@ function LoginForm({ history }: RouteComponentProps) {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       });
+
       if (response.data.isAuthenticated) {
         updateAuthState({
           isAuthenticated: true,

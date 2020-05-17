@@ -6,8 +6,8 @@ import qs from 'qs';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
-import TextFieldBase from './TextFieldBase';
-import TextFieldPassword from './TextFieldPassword';
+import TextFieldBase from '../common/TextFieldBase';
+import TextFieldPassword from '../common/TextFieldPassword';
 
 interface FormValues {
   firstName: string;

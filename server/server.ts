@@ -14,7 +14,6 @@ const app: Application = express();
 const { SERVER_PORT } = process.env;
 const { SERVER_HOST } = process.env;
 const { SESSION_SECRET } = process.env;
-
 const SequelizeStore = sessionSequelize(session.Store);
 
 // top-level middleware
@@ -37,6 +36,7 @@ app.use(
     }),
   })
 );
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -51,20 +51,34 @@ app.use('/admin', adminRoute);
 
 // sync models and start server
 models.sequelize.sync().then(async () => {
-  // add default rows to table 'role'
+  // Default rows
+
+  // Role
   await models.Role.findOrCreate({
     where: { role_type: 'customer' },
     defaults: { role_type: 'customer' },
   });
-
   await models.Role.findOrCreate({
     where: { role_type: 'visitor' },
     defaults: { role_type: 'visitor' },
   });
-
   await models.Role.findOrCreate({
     where: { role_type: 'admin' },
     defaults: { role_type: 'admin' },
+  });
+
+  // Category
+  await models.Category.findOrCreate({
+    where: { category_name: 'coffee' },
+    defaults: { category_name: 'coffee' },
+  });
+  await models.Category.findOrCreate({
+    where: { category_name: 'brewing equipment' },
+    defaults: { category_name: 'brewing equipment' },
+  });
+  await models.Category.findOrCreate({
+    where: { category_name: 'gifts' },
+    defaults: { category_name: 'gifts' },
   });
 
   app.listen(SERVER_PORT, () => {

@@ -6,7 +6,7 @@ import {
   RouteProps,
 } from 'react-router-dom';
 
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../../context/AuthContext';
 
 type Props = RouteProps & {
   component: any;

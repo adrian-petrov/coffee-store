@@ -2,11 +2,11 @@ import { css } from '@emotion/core';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import React from 'react';
 import { Route, RouteComponentProps, Switch } from 'react-router-dom';
-import AuthRoute from '../components/AuthRoute';
+import AuthRoute from '../components/common/AuthRoute';
 import { AuthProvider } from '../context/AuthContext';
-import AdminPage from '../pages/AdminPage';
-import LoginPage from '../pages/LoginPage';
-import RegisterPage from '../pages/RegisterPage';
+import AdminPage from '../pages/admin/AdminPage';
+import AdminLoginPage from '../pages/admin/LoginPage';
+import AdminRegisterPage from '../pages/admin/RegisterPage';
 
 const darkTheme = createMuiTheme({
   typography: {
@@ -49,8 +49,11 @@ const AdminLayout = ({ match }: RouteComponentProps) => {
       >
         <AuthProvider>
           <Switch>
-            <Route path={`${match.path}/login`} component={LoginPage} />
-            <Route path={`${match.path}/register`} component={RegisterPage} />
+            <Route path={`${match.path}/login`} component={AdminLoginPage} />
+            <Route
+              path={`${match.path}/register`}
+              component={AdminRegisterPage}
+            />
             <AuthRoute
               path={match.path}
               authenticationPath={`${match.path}/login`}

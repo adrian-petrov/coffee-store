@@ -1,4 +1,4 @@
-import { Sequelize, Model, BuildOptions, INTEGER, STRING } from 'sequelize';
+import { Sequelize, Model, BuildOptions, SMALLINT, STRING } from 'sequelize';
 
 interface CategoryModel extends Model {
   category_id: number;
@@ -15,12 +15,12 @@ type CategoryStatic = typeof Model & {
 export function Category(sequelize: Sequelize) {
   const Category = <CategoryStatic>sequelize.define('category', {
     category_id: {
-      type: INTEGER,
+      type: SMALLINT,
       primaryKey: true,
       autoIncrement: true,
     },
     category_name: {
-      type: STRING,
+      type: STRING(50),
       allowNull: false,
     },
   });

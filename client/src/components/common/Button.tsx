@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, LinkProps as ReactRouterLinkProps } from 'react-router-dom';
 import styled from '@emotion/styled';
 
-import colors from '../colors';
+import colors from '../../colors';
 
 const StyledButtonPrimary = styled.button`
   display: inline-block;

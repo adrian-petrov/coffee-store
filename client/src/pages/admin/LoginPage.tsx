@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link, Route, Redirect } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
-import AdminLoginForm from '../components/AdminLoginForm';
-import CompanyLogo from '../svg-icons/CompanyLogo';
-import { AuthContext } from '../context/AuthContext';
+import LoginForm from '../../components/admin/LoginForm';
+import CompanyLogo from '../../svg-icons/CompanyLogo';
+import { AuthContext } from '../../context/AuthContext';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function AdminLoginPage() {
+function LoginPage() {
   const classes = useStyles();
 
   const { authState } = React.useContext(AuthContext);
@@ -44,4 +44,4 @@ function AdminLoginPage() {
   );
 }
 
-export default AdminLoginPage;
+export default LoginPage;

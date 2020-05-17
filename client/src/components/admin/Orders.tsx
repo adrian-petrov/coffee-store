@@ -2,7 +2,7 @@ import React from 'react';
 
 type Props = {};
 
-function Orders() {
+function AdminOrders() {
   return (
     <div>
       <h1>Orders</h1>
@@ -11,4 +11,4 @@ function Orders() {
   );
 }
 
-export default Orders;
+export default AdminOrders;

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import AdminRegisterForm from '../components/AdminRegisterForm';
-import CompanyLogo from '../svg-icons/CompanyLogo';
+import RegisterForm from '../../components/admin/RegisterForm';
+import CompanyLogo from '../../svg-icons/CompanyLogo';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function AdminRegisterPage() {
+function RegisterPage() {
   const classes = useStyles();
 
   return (
@@ -28,10 +28,10 @@ function AdminRegisterPage() {
           <CompanyLogo marginBottom="5rem" width="35rem" />
         </Link>
         <h2>Register</h2>
-        <AdminRegisterForm />
+        <RegisterForm />
       </Grid>
     </Grid>
   );
 }
 
-export default AdminRegisterPage;
+export default RegisterPage;

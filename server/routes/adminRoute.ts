@@ -4,8 +4,8 @@ import * as UserController from '../controllers/userController';
 import {
   sanitizeLoginForm,
   sanitizeRegisterForm,
-  validate,
 } from '../middlewares/userMiddleware';
+import { validate } from '../middlewares/commonMiddleware';
 
 import productsRoute from './productsRoute';
 
@@ -30,6 +30,11 @@ router.post(
 
 router.get('/logout', UserController.logoutUser);
 
+/**
+ * Nested routes
+ * /admin/products/.../
+ * /admin/users/.../
+ */
 router.use('/products', productsRoute);
 
 export default router;

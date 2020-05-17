@@ -1,4 +1,11 @@
-import { Sequelize, Model, BuildOptions, INTEGER, STRING } from 'sequelize';
+import {
+  Sequelize,
+  Model,
+  BuildOptions,
+  STRING,
+  SMALLINT,
+  DECIMAL,
+} from 'sequelize';
 
 interface ProductModel extends Model {
   product_id: number;
@@ -20,16 +27,16 @@ type ProductStatic = typeof Model & {
 export function Product(sequelize: Sequelize) {
   const Product = <ProductStatic>sequelize.define('product', {
     product_id: {
-      type: INTEGER,
+      type: SMALLINT,
       primaryKey: true,
       autoIncrement: true,
     },
     category_id: {
-      type: INTEGER,
+      type: SMALLINT,
       allowNull: false,
     },
     name: {
-      type: STRING,
+      type: STRING(100),
       allowNull: false,
       unique: true,
     },
@@ -42,11 +49,11 @@ export function Product(sequelize: Sequelize) {
       allowNull: false,
     },
     price: {
-      type: INTEGER,
+      type: DECIMAL(4, 2),
       allowNull: false,
     },
     discount: {
-      type: INTEGER,
+      type: SMALLINT,
     },
   });
 
@@ -59,6 +66,7 @@ export function Product(sequelize: Sequelize) {
       onDelete: 'SET NULL',
     });
     Product.hasOne(models.ProductCoffee, {
+      as: 'ProductCoffee',
       foreignKey: 'product_id',
     });
   };

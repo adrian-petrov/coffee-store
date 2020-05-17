@@ -7,14 +7,14 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import CompanyLogo from '../svg-icons/CompanyLogo';
+import CompanyLogo from '../../svg-icons/CompanyLogo';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Badge from '@material-ui/core/Badge';
 import HomeIcon from '@material-ui/icons/Home';
 import ListItemText from '@material-ui/core/ListItemText';
 import { Link, Route, RouteComponentProps, withRouter } from 'react-router-dom';
-import CoffeeBeansIcon from '../svg-icons/CoffeeBeansIcon';
+import CoffeeBeansIcon from '../../svg-icons/CoffeeBeansIcon';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
@@ -24,8 +24,11 @@ import Hidden from '@material-ui/core/Hidden';
 import Divider from '@material-ui/core/Divider';
 import PeopleIcon from '@material-ui/icons/People';
 import Avatar from '@material-ui/core/Avatar';
-import { AuthContext } from '../context/AuthContext';
-import Orders from './AdminOrders';
+import { AuthContext } from '../../context/AuthContext';
+import Orders from './Orders';
+import Coffee from './Coffee';
+import BrewingEquipment from './BrewingEquipment';
+import Gifts from './Gifts';
 
 const DRAWER_WIDTH = 240;
 
@@ -104,7 +107,7 @@ type Props = RouteComponentProps & {
   handleLogout: () => void;
 };
 
-function AdminDashboard({ handleLogout, match }: Props) {
+function Dashboard({ handleLogout, match }: Props) {
   const classes = useStyles();
   const { authState } = React.useContext(AuthContext);
 
@@ -323,4 +326,4 @@ function AdminDashboard({ handleLogout, match }: Props) {
   );
 }
 
-export default withRouter(AdminDashboard);
+export default withRouter(Dashboard);

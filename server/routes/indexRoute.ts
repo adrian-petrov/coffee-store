@@ -3,9 +3,9 @@ import passport from 'passport';
 import * as UserController from '../controllers/userController';
 import {
   sanitizeRegisterForm,
-  validate,
   sanitizeLoginForm,
 } from '../middlewares/userMiddleware';
+import { validate } from '../middlewares/commonMiddleware';
 
 const router = express.Router();
 

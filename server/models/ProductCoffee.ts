@@ -4,6 +4,7 @@ import {
   BuildOptions,
   INTEGER,
   STRING,
+  SMALLINT,
   ARRAY,
 } from 'sequelize';
 
@@ -28,15 +29,15 @@ export function ProductCoffee(sequelize: Sequelize) {
     'product_coffee',
     {
       product_id: {
-        type: INTEGER,
+        type: SMALLINT,
         primaryKey: true,
       },
       type: {
-        type: STRING,
+        type: STRING(15),
         allowNull: false,
       },
       country: {
-        type: STRING,
+        type: STRING(50),
         allowNull: false,
       },
       notes: {
@@ -56,6 +57,7 @@ export function ProductCoffee(sequelize: Sequelize) {
 
   ProductCoffee.associate = function (models: { [key: string]: any }) {
     ProductCoffee.belongsTo(models.Product, {
+      as: 'Product',
       foreignKey: {
         name: 'product_id',
         allowNull: false,

@@ -1,30 +1,13 @@
-import { Request, Response, NextFunction } from 'express';
 import models from '../models/index';
-import { check, validationResult } from 'express-validator';
-import { runInNewContext } from 'vm';
+import { check } from 'express-validator';
 
 /**
- * validate() is to be used in conjunction with sanitizeRegisterForm() only
- * sanitizeLoginForm() uses passport.js validation through failWithError flag
+ * common validate() is to be used in conjunction
+ * with sanitizeRegisterForm() only
+ * sanitizeLoginForm() should not use validate() because it already
+ * uses passport.js validation through failWithError flag
  * which passes errors to the next middleware
  */
-export function validate(req: Request, res: Response, next: NextFunction) {
-  const errors = validationResult(req);
-
-  if (errors.isEmpty()) {
-    return next();
-  }
-
-  const extractedErrors: { [key: string]: string } = {};
-  /**
-   * validationResult() also returns the input value which could be the password
-   * send back to client only object with field name and corresponding error
-   */
-  errors.array().map((err) => (extractedErrors[err.param] = err.msg));
-
-  return res.status(409).send({ errors: extractedErrors });
-}
-
 export function sanitizeRegisterForm() {
   return [
     check('email')
