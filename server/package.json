@@ -6,7 +6,7 @@
   "author": "Adrian Petrov",
   "license": "MIT",
   "dependencies": {
-    "bcrypt": "^4.0.1",
+    "bcrypt": "^5.0.0",
     "connect-session-sequelize": "^6.1.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
